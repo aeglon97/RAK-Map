@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import pandas as pd
 import numpy as np, numpy.random
 import csv
 import random as rand
 
 rak_businesses = pd.read_csv(r'rak_businesses.csv')
+
 
 for i in range(len(rak_businesses)):
     #assign number of stakeholders per company
@@ -25,10 +19,9 @@ for i in range(len(rak_businesses)):
     string_stakeholder_rates = ', '.join(str("%.2f" % e) for e in np.nditer(stakeholder_rates))
     
     #put each stakeholder ID string in column
-    rak_businesses.set_value(0, 'pk_stakeholder_ids', string_stakeholder_ids)
-    
+    rak_businesses.set_value(i, 'pk_stakeholder_ids', string_stakeholder_ids)
     #put each stakeholder rate string in column
-    rak_businesses.set_value(0, 'Stakeholder Rates', string_stakeholder_rates)
+    rak_businesses.set_value(i, 'Stakeholder Rates', string_stakeholder_rates)
     
     rak_businesses.to_csv('rak_businesses_modified.csv', index=False)
 
