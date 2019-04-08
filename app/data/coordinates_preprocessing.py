@@ -32,16 +32,17 @@ findplace_fields = 'formatted_address,name,opening_hours,geometry'
 placedetail_url = 'https://maps.googleapis.com/maps/api/place/details/json?'
 placedetail_fields = 'formatted_address,name,opening_hours,geometry'
 
-findplace_results_json = requests.get(findplace_url + 'input=manar%20mall' + '&inputtype=' + findplace_inputtype +
+findplace_results_json = requests.get(findplace_url + 'input=ras%20al%20khaimah' + '&inputtype=' + findplace_inputtype +
                               '&key=' + api_key).json()
 findplace_id = findplace_results_json['candidates'][0].get('place_id', "")
 
 #using place details to find opening hours
 placedetail_results_json = requests.get(placedetail_url + 'placeid=' + findplace_id + '&fields=' + placedetail_fields + '&key=' + api_key).json()
 
-for i in range(7):
+print(placedetail_results_json)
+'''for i in range(7):
     print(placedetail_results_json['result']['opening_hours']['periods'][i]['open']['day'] , '\t' ,
-          placedetail_results_json['result']['opening_hours']['periods'][i]['open']['time'])
+          placedetail_results_json['result']['opening_hours']['periods'][i]['open']['time'])'''
 
 
 #findplace_ob = requests.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=falafel%20abu%20naeem&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=' + api_key)
