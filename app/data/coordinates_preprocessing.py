@@ -16,7 +16,7 @@ import geojson
 import os
 import googlemaps
 from datetime import datetime
-
+import random
 
 #dealing with environment variables
 from os.path import join, dirname
@@ -58,20 +58,40 @@ RAK BOUNDS [lat, lng]
     Northeast: 26.0696541, 56.19553699999999
     Southwest: 25.3543, 55.7306787    
 '''
+from pprint import pprint
+
+#read geoJSON coordinates
+with open('rak_rect.geojson') as f:
+    rak_coords_json = json.load(f)
+
+rak_coords = rak_coords_json["features"][0]["geometry"]["coordinates"][0]
+min_x = rak_coords[0][0]
+min_y = rak_coords[0][1]
+max_x = rak_coords[2][0]
+max_y = rak_coords[2][1]
 
 #TODO 1: generate random coordinate in RAK boundary
-#shape = json.loads('C:/Users/EGA/Documents/RAK-Map/app/data/rak_rect.geojson')
+added = []
+sampleSize = 15
+count = 0
 
-print(geojson.loads('rak_rect.json'))
-
-    #TODO 2: check if not on road
+while count < sampleSize:
+    r_x = random.uniform(min_x, max_x)
+    r_y = random.uniform(min_y, max_y)
+    r_coord = [r_x, r_y]
+    if r_coord not in added:
+        count += 1
+        added.append(r_coord)
+        
+print(added)
     
-    #TODO 3: check if on land
+
+    #TODO 2: check if in RAK
+    
+    #TODO 3: check if on a road
 
     #TODO 4: check if nearby other businesses
     
     #if coordinates pass all 3 tests, continue; else generate new point & repeat
     
-#TODO 5: extract opening hours of business
-    
-#TODO 6: find any other interesting parameters
+#TODO 5: generate random opening hours
