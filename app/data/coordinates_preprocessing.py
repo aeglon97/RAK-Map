@@ -108,18 +108,26 @@ def meetsConstraints(r_coord):
     
     #check if on road
     
+df = pd.DataFrame(columns = ['lat','lng'])
+added = []
+for i in range(200000):
+    row = [random.uniform(min_x, max_x), random.uniform(min_y, max_y)]
+    if row not in added:
+        added.append(row)
+        df.loc[i] = row
+    
+df.to_csv('rect_points_1.csv')
 
-
-while count < sampleSize:
+'''while count < sampleSize:
     r_x = random.uniform(min_x, max_x)
     r_y = random.uniform(min_y, max_y)
     r_coord = (r_x, r_y)
     if r_coord not in added and meetsConstraints(r_coord):
         count += 1
-        added.append(r_coord)
+        added.append(r_coord)'''
 
-for i in added:
-    print(i[0], i[1])     
+'''for i in added:
+    print(i[0], i[1])    ''' 
 #gmap1 = gmplot.GoogleMapPlotter(latitude_list[0], longitude_list[1], 13, api_key)
 #gmap1.scatter(latitude_list, longitude_list, '# FF0000', size=40, marker = False)
 
