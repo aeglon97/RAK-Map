@@ -10,6 +10,8 @@ max_business_id = 31030
 num_row = 1
 
 current_business_id = 1
+
+df.head()
 while(current_business_id <= max_business_id):
     #print("current_business_id: ", current_business_id)
     #assign multiple stakeholders to business 
@@ -37,6 +39,6 @@ while(current_business_id <= max_business_id):
     current_business_id += 1
     
 
-df.to_csv("Businesses-Stakeholders.csv", index=False)
+#df.to_csv("Businesses-Stakeholders.csv", index=False)
     
 print("done!")

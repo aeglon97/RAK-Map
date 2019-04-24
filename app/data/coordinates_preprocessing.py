@@ -10,6 +10,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 import pandas as pd
 import numpy as np
+from numpy import array
 import requests, json
 import geojson
 #df = pd.read_csv('Rak Businesses.csv')
@@ -83,14 +84,16 @@ def generateJSON(r_coord):
 def isInRAK(result_json):
     #print('=====checking if in RAK=======')
     if (result_json and 'compound_code' in result_json['plus_code']):
+        
         address = result_json['plus_code']['compound_code']
         print(address)
         if ('Ras al Khaimah' not in address):
             #print("this is not in RAK.")
             return False
-        else:
-            #print("this is in RAK.")
-            return True
+        #print("this is in RAK.")
+        return True
+    else:
+        return False
     
 def isOnRoad(result_json):
     print('=====checking if by road=====')
@@ -99,7 +102,7 @@ def isOnRoad(result_json):
         pprint.pprint(geometry)
     
 def meetsConstraints(r_coord):
-    print('-----------------------')
+    # print('-----------------------')
     result_json = generateJSON(r_coord)
     if isInRAK(result_json):
         return True
@@ -108,16 +111,30 @@ def meetsConstraints(r_coord):
     
     #check if on road
     
-df = pd.DataFrame(columns = ['lat','lng'])
-added = []
-for i in range(200000):
+df = pd.read_csv('rect_points_1.csv')
+
+'''for i in range(200000):
     row = [random.uniform(min_x, max_x), random.uniform(min_y, max_y)]
     if row not in added:
         added.append(row)
         df.loc[i] = row
-    
-df.to_csv('rect_points_1.csv')
 
+df.to_csv('rect_points_1.csv')'''
+
+df_in_rak = pd.DataFrame(columns = ['lat', 'lng'])
+
+lat_list = np.array(df['lat'])
+lng_list = np.array(df['lng'])
+
+while count < len(df):
+    row = (lat_list[count], lng_list[count])
+    
+    if meetsConstraints(row) :
+        df_in_rak.loc[count] = row
+    count += 1
+        
+df_in_rak.to_csv('rect_points_2.csv', index=False)
+        
 '''while count < sampleSize:
     r_x = random.uniform(min_x, max_x)
     r_y = random.uniform(min_y, max_y)
