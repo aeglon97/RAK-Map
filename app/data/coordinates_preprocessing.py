@@ -83,10 +83,9 @@ def generateJSON(r_coord):
 
 def isInRAK(result_json):
     #print('=====checking if in RAK=======')
-    if (result_json and 'compound_code' in result_json['plus_code']):
-        
+    if (result_json and result_json['plus_code'] and 
+        'compound_code' in result_json['plus_code']):
         address = result_json['plus_code']['compound_code']
-        print(address)
         if ('Ras al Khaimah' not in address):
             #print("this is not in RAK.")
             return False
