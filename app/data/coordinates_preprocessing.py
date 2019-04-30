@@ -73,7 +73,7 @@ added = []
 latitude_list = []
 longitude_list = []
 sampleSize = 15
-count = 0
+
 
 def generateJSON(r_coord):
     params = 'latlng=' + str(r_coord[0]) + ',' + str(r_coord[1])
@@ -119,40 +119,14 @@ df = pd.read_csv('rect_points_1.csv')
         df.loc[i] = row
 
 df.to_csv('rect_points_1.csv')'''
-
-df_in_rak = pd.DataFrame(columns = ['lat', 'lng'])
-
-lat_list = np.array(df['lat'])
-lng_list = np.array(df['lng'])
+count = 0
+df_in_rak = pd.read_csv('rect_points_2.csv')
 
 while count < len(df):
-    row = (lat_list[count], lng_list[count])
+    row = (df.iloc[count, 1], df.iloc[count, 2])
     
     if meetsConstraints(row) :
         df_in_rak.loc[count] = row
     count += 1
         
 df_in_rak.to_csv('rect_points_2.csv', index=False)
-        
-'''while count < sampleSize:
-    r_x = random.uniform(min_x, max_x)
-    r_y = random.uniform(min_y, max_y)
-    r_coord = (r_x, r_y)
-    if r_coord not in added and meetsConstraints(r_coord):
-        count += 1
-        added.append(r_coord)'''
-
-'''for i in added:
-    print(i[0], i[1])    ''' 
-#gmap1 = gmplot.GoogleMapPlotter(latitude_list[0], longitude_list[1], 13, api_key)
-#gmap1.scatter(latitude_list, longitude_list, '# FF0000', size=40, marker = False)
-
-#gmap1.draw('C:\\Users\\EGA\\Desktop\\map1.html')
-    #TODO 2: check if in RAK
-    
-    #TODO 3: check if nearby a road
-
-     #TODO 4: check if nearby other businesses
-    
-    #if coordinates pass all 3 tests, continue; else generate new point & repeat
-#TODO 5: generate random opening hours
