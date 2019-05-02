@@ -31,33 +31,6 @@ api_key = os.getenv('RAK_MAP_API_KEY')
 
 geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
 
-'''
-findplace_url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?'
-findplace_inputtype = 'textquery'
-findplace_fields = 'formatted_address,name,opening_hours,geometry'
-
-placedetail_url = 'https://maps.googleapis.com/maps/api/place/details/json?'
-placedetail_fields = 'formatted_address,name,opening_hours,geometry'
-
-findplace_results_json = requests.get(findplace_url + 'input=falafel%20abu%20naeem' + '&inputtype=' + findplace_inputtype +
-                              '&key=' + api_key).json()
-findplace_id = findplace_results_json['candidates'][0].get('place_id', "")
-
-#using place details to find opening hours
-placedetail_results_json = requests.get(placedetail_url + 'placeid=' + findplace_id + '&fields=' + placedetail_fields + '&key=' + api_key).json()
-
-print(placedetail_results_json)
-for i in range(7):
-    print(placedetail_results_json['result']['opening_hours']['periods'][i]['open']['day'] , '\t' ,
-          placedetail_results_json['result']['opening_hours']['periods'][i]['open']['time'])
-
-'''
-'''
-RAK BOUNDS [lat, lng]
-    Northeast: 26.0696541, 56.19553699999999
-    Southwest: 25.3543, 55.7306787    
-'''
-
 #read geoJSON coordinates
 with open('rak_rect.geojson') as f:
     rak_coords_json = json.load(f)
@@ -119,7 +92,7 @@ df = pd.read_csv('rect_points_1.csv')
         df.loc[i] = row
 
 df.to_csv('rect_points_1.csv')'''
-count = 0
+count = 50000
 df_in_rak = pd.read_csv('rect_points_2.csv')
 
 while count < len(df):
